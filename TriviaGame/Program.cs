@@ -26,11 +26,11 @@ namespace TriviaGame
                 Console.WriteLine(GetTriviaList()[rng.Next(0, 5001)].Question);
                 string input = Console.ReadLine();
 
-                if (input == GetTriviaList()[rng.Next(0, 5001)].Answer)
+                if (input == )
                 {
                     Console.WriteLine("Correct!");
                 }
-                Console.WriteLine("The answer was " + GetTriviaList()[rng.Next(0, 5001)].Answer);
+                Console.WriteLine("The answer was " + );
             }
 
             Console.ReadKey();
