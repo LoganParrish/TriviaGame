@@ -20,19 +20,46 @@ namespace TriviaGame
             int incorrect = 0;
 
 
-            while (score > 0)
+            while (score > 0 && score < 15)
             {
 
-                Console.WriteLine(GetTriviaList()[rng.Next(0, 5001)].Question);
+                var userQuestionAnswer = GetTriviaList()[rng.Next(0, 5001)];
+
+                Console.WriteLine("Total score : " + score + "   Number correct : " + correct + "   Number incorrect : " + incorrect);
+                Console.WriteLine("_______________________________________________________________________________\n\n");
+
+                Console.WriteLine(userQuestionAnswer.Question + "\n");
+
                 string input = Console.ReadLine();
 
-                if (input == )
+                if (input == userQuestionAnswer.Answer.ToLower())
                 {
-                    Console.WriteLine("Correct!");
+                    Console.WriteLine("Correct!\n");
+                    correct++;
+                    score += 1;
                 }
-                Console.WriteLine("The answer was " + );
+                else
+                {
+                    Console.WriteLine("Incorrect!\n");
+                    incorrect++;
+                    score -= 1;
+                }
+                Console.WriteLine("\nThe answer was " + userQuestionAnswer.Answer);
+                Console.WriteLine("\nPress any key to continue!");
+                Console.ReadKey();
+                Console.Clear();
+                if (score <= 0)
+                {
+                    Console.WriteLine("You lose. You're terrible. You're just so bad.");
+                    Console.WriteLine("On your way to a total score of " + score + ", you got " + correct + " correct and " + incorrect + " incorrect.");
+                }
+                else if (score >= 15)
+                {
+                    Console.WriteLine("I have no idea how you managed to win. You are literally jesus.");
+                    Console.WriteLine("On your way to a total score of " + score + ", you got " + correct + " correct and " + incorrect + " incorrect.");
+                }
+                
             }
-
             Console.ReadKey();
         }
 
