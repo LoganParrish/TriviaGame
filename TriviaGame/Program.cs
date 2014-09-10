@@ -13,6 +13,27 @@ namespace TriviaGame
         {
             //The logic for your trivia game happens here
             List<Trivia> AllQuestions = GetTriviaList();
+            Random rng = new Random();
+
+            int score = 5;
+            int correct = 0;
+            int incorrect = 0;
+
+
+            while (score > 0)
+            {
+
+                Console.WriteLine(GetTriviaList()[rng.Next(0, 5001)].Question);
+                string input = Console.ReadLine();
+
+                if (input == GetTriviaList()[rng.Next(0, 5001)].Answer)
+                {
+                    Console.WriteLine("Correct!");
+                }
+                Console.WriteLine("The answer was " + GetTriviaList()[rng.Next(0, 5001)].Answer);
+            }
+
+            Console.ReadKey();
         }
 
 
@@ -30,6 +51,12 @@ namespace TriviaGame
             //       add it to our return list.
             // Example: Trivia newTrivia = new Trivia("what is my name?*question");
             //Return the full list of trivia questions
+            foreach (var item in contents)
+            {
+                Trivia bestTrivia = new Trivia(item);
+                returnList.Add(bestTrivia);
+            }
+
             return returnList;
         }
     }
