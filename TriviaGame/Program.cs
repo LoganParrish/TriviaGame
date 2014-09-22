@@ -60,6 +60,8 @@ namespace TriviaGame
                 }
                 
             }
+            AddHighScore(correct);
+            DisplayHighScore();
             Console.ReadKey();
         }
 
@@ -85,6 +87,43 @@ namespace TriviaGame
             }
 
             return returnList;
+        }
+        static void AddHighScore(int playerScore)
+        {
+            Console.WriteLine("\n\nAdd your name to the highscores: ");
+            string playerName = Console.ReadLine();
+
+            LoganEntities db = new LoganEntities();
+
+            HighScore newHighScore = new HighScore();
+            newHighScore.Date = DateTime.Now;
+            newHighScore.Name = playerName;
+            newHighScore.Game = "TriviaGame";
+            newHighScore.Score = playerScore;
+
+            db.HighScores.Add(newHighScore);
+
+            db.SaveChanges();
+
+        }
+        static void DisplayHighScore()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n\n==================== HIGH SCORES ====================");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("\n");
+            Console.ResetColor();
+
+            //create a new connection to the database
+            LoganEntities db = new LoganEntities();
+            List<HighScore> highScoreList = db.HighScores.Where(x => x.Game == "TriviaGame").OrderByDescending(x => x.Score).Take(10).ToList();
+
+            foreach (HighScore highScore in highScoreList)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("{0}. {1} - {2} - {3}", highScoreList.IndexOf(highScore) + 1, highScore.Name, highScore.Score, highScore.Date.Value.ToShortDateString());
+                Console.ResetColor();
+            }
         }
     }
 }
